@@ -27,7 +27,7 @@
               <label class="form-label" for="memberId">ID:</label>
               <input
                   id="memberId"
-                  v-model="member.id"
+                  v-model="memberForm.id"
                   class="form-control"
                   type="text" disabled/>
             </div>
@@ -36,7 +36,7 @@
               <label class="form-label" for="memberusername">username:</label>
               <input
                   id="memberusername"
-                  v-model="member.username"
+                  v-model="memberForm.username"
                   class="form-control"
                   placeholder="Enter username"
                   type="text"/>
@@ -46,7 +46,7 @@
               <label class="form-label" for="memberage">age:</label>
               <input
                   id="memberage"
-                  v-model="member.age"
+                  v-model="memberForm.age"
                   class="form-control"
                   placeholder="Enter age"
                   type="text"/>
@@ -56,15 +56,15 @@
               <label class="form-label" for="membersalary">salary:</label>
               <input
                   id="membersalary"
-                  v-model="member.salary"
+                  v-model="memberForm.salary"
                   class="form-control"
                   placeholder="Enter salary"
                   type="text"/>
             </div>
             <!-- Member.Dept   -->
-            <div class="form-group">
+            <div class="mb-3">
               <label class="form-label" for="memberDept">Department: </label>
-              <select id="memberDept" v-model="member.department">
+              <select id="memberDept" v-model="memberForm.department">
                   <option value="Development">Development</option>
                   <option value="HR">HR</option>
                   <option value="Research">Research</option>
@@ -72,17 +72,17 @@
             </div>
             <!-- Member.Sex -->
             <div class="mb-3 form-group">
-              <label class="form-label" >Sex: </label><p></p>
-              <input type="radio" v-model="this.member.sex" value="M" />Male
-              <input type="radio" v-model="this.member.sex" value="F" />Female
-              <input type="radio" v-model="this.member.sex" value="O" />LGTP
+              <label class="form-label" >Sex: </label>
+              <input type="radio" v-model="memberForm.sex" value="M" />Male
+              <input type="radio" v-model="memberForm.sex" value="F" />Female
+              <!-- <input type="radio" v-model="this.member.sex" value="O" <p></p>/>LGTP -->
             </div>
             <!-- Member.email -->
             <div class="mb-3">
               <label class="form-label" for="memberemail">email:</label>
               <input
                   id="memberemail"
-                  v-model="member.email"
+                  v-model="memberForm.email"
                   class="form-control"
                   placeholder="Enter email"
                   type="text"/>
@@ -92,7 +92,7 @@
               <label class="form-label" for="memberpassword">password:</label>
               <input
                   id="memberpassword"
-                  v-model="member.password"
+                  v-model="memberForm.password"
                   class="form-control"
                   placeholder="Enter password"
                   type="password"/>
@@ -129,7 +129,7 @@ export default {
   data() {
     return {
       activeAdd: true,
-      member: {
+      memberForm: {
         id: "",
         username: "",
         age: "",
@@ -150,8 +150,7 @@ export default {
   methods: {
     addMember(payload) {
       const path = "http://localhost:5001/Members";
-      axios
-          .post(path, payload)
+      axios.post(path, payload)
           .then(() => {
             this.getMembers();
             this.message = "Member added";
@@ -168,12 +167,12 @@ export default {
     handleSubmit() {
       this.toggleAddMemberModal();
       let read = false;
-      if (this.member.read[0]) {
+      if (this.memberForm.read[0]) {
         read = true;
       }
       const payload = {
-        title: this.member.title,
-        author: this.member.author,
+        title: this.memberForm.title,
+        author: this.memberForm.author,
         read, // property shorthand
       };
       this.addMember(payload);
@@ -181,14 +180,14 @@ export default {
       this.action="";
     },
     initForm() {
-      this.member.id="";
-      this.member.name="";
-      this.member.age="";
-      this.member.salary="";
-      this.member.department="";
-      this.member.sex=[];
-      this.member.email="";
-      this.member.password="";
+      this.memberForm.id="";
+      this.memberForm.name="";
+      this.memberForm.age="";
+      this.memberForm.salary="";
+      this.memberForm.department="";
+      this.memberForm.sex=[];
+      this.memberForm.email="";
+      this.memberForm.password="";
     },
     toggleAddMemberModal() {
       const body = document.querySelector("body");
@@ -233,7 +232,6 @@ export default {
   },
   created() {
     // this.getMembers();
-
     console.log("component: 'MemberModal' created!");
   },
 };
