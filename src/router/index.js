@@ -1,6 +1,7 @@
 import {createRouter, createWebHistory} from "vue-router";
+import Dashboard from "../components/DashboardView.vue";
+import LoginView from "../components/LoginView.vue";
 import Members from "../components/Members.vue";
-// import Books from "../components/Books.vue";
 import Ping from "../components/Ping.vue";
 
 const router = createRouter({
@@ -8,6 +9,16 @@ const router = createRouter({
     routes: [
         {
             path: "/",
+            name: "dashboard",
+            component: Dashboard,
+        },
+        {
+            path: "/login",
+            name: "login",
+            component: LoginView,
+        },
+        {
+            path: "/Employee",
             name: "Members",
             component: Members,
         },

@@ -306,26 +306,26 @@ export default {
           });
     },
     getMembers() {
-      // var ann = {
-      //       id:"df7fd05c-bc6c-4dcf-9028-991d1deb5c08",
-      //       username:"Ann",
-      //       age:"23",
-      //       salary:"3.00",
-      //       department:"HR",
-      //       sex:'F',
-      //       email:"a@bc.de",
-      //       password:"P@ssw0rd"
-      //     };
-      // this.members = [ann];//for test
+      var ann = {
+            id:"df7fd05c-bc6c-4dcf-9028-991d1deb5c08",
+            username:"Ann",
+            age:"23",
+            salary:"3.00",
+            department:"HR",
+            sex:'F',
+            email:"a@bc.de",
+            password:"P@ssw0rd"
+          };
+      this.members = [ann];//for test
 
-      const path ="https://localhost:5001/Employee";
-      axios.get(path)
-          .then((res) => {
-            this.members = res.data.Members;
-          })
-          .catch((error) => {
-            console.error(error);
-          });
+      // const path ="https://localhost:5001/Employee";
+      // axios.get(path)
+      //     .then((res) => {
+      //       this.members = res.data.Members;
+      //     })
+      //     .catch((error) => {
+      //       console.error(error);
+      //     });
     },
     updateMember(payload, MemberID) {
       const path = `http://localhost:5001/Members/${MemberID}`;

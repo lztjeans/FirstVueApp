@@ -1,0 +1,169 @@
+<script setup>
+import 'bootstrap/dist/css/bootstrap.css';
+import axios from "axios";
+var homePageUrl = "/Home/Index";
+var empIndexUrl = "/Employee/Index";
+
+
+var curUser="";
+var isLogin=false;
+// defineProps({
+//   curUser: {
+//     type: String,
+//     // required: true,
+//     default: ""
+//   },
+//   isLogin : {
+//     type: Boolean,
+//     // required: true,
+//     default: false
+//   }
+// }),
+</script>
+
+<script>
+export default {  
+    data() {
+    return {
+      activeAddModal: false,
+      activeUpdateModal: false,
+      memberForm: {
+        id: "",
+        username: "",
+        age: "",
+        salary: "",
+        department: "",
+        sex: '',
+        email: "",
+        password: ""
+      },
+      members: [],
+      message: "",
+      showMessage: false,
+      action: ""
+    };
+  },
+    methods: {
+        handleLogout() {
+            const path = "http://localhost:5001/Account/Logout";
+            axios
+                .get(path)
+                .then((res) => {
+                    this.members = res.data.Members;
+            })
+                .catch((error) => {
+                    console.error(error);
+            });
+        },
+        handleLogin() {
+            const path = "http://localhost:5001/Account/Login";
+            axios
+                .post(path, payload)
+                .then(() => {
+                    this.getMembers();
+                    this.message = "Member added";
+                    this.showMessage = true;
+            })
+                .catch((error) => {
+                    console.log(error);
+                    this.getMembers();
+            });
+        },
+    }
+};
+
+
+</script>
+
+<template>
+    <div class="container-fluid">
+        <a class="navbar-brand" :href="homePageUrl">FirstApp</a>
+        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+            <ul class="navbar-nav flex-grow-1">
+                <li class="nav-item">
+                    <a class="nav-link text-dark" :href="empIndexUrl">All Employee</a>
+                </li>
+            </ul>
+        </div>
+        <div class="display-8">Welcome {{ curUser }} </div>
+        <div class="nav-item"> </div>
+        <div class="nav-item">
+            <!-- <a :href="logoutUrl" v-if="isLogin" class="btn btn-danger">Logout</a> -->
+            <!-- <a :href="loginUrl" v-else class="nav-link text-dark" ReturnUrl="/">Login</a> -->
+            <a v-if="isLogin"  class="btn btn-danger" @click="handleLogout()">Logout</a>
+            <a v-else class="btn btn-dark" @click="handleLogin()">Login</a>
+        </div>
+    </div>        
+
+    <div v-show="activeAddModal || activeUpdateModal" class="modal-backdrop fade show"></div>
+
+    <div :class="{ show: activeAddModal || activeUpdateModal , 'd-block': activeAddModal || activeUpdateModal}" class="modal fade" role="dialog" tabindex="-1">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 v-if="action == action_C" class="modal-title">Create</h5>
+          <h5 v-else-if="action == action_U" class="modal-title">Update</h5>
+          <!--button-->
+          <button
+              aria-label="Close"
+              class="close"
+              data-dismiss="modal"
+              type="button"
+              @click="handleCloseModal">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <!-- Member.email -->
+            <div class="mb-3">
+              <label class="form-label" for="memberemail">email:</label>
+              <input
+                  id="memberemail"
+                  v-model="memberForm.email"
+                  class="form-control"
+                  placeholder="Enter email"
+                  type="text"/>
+            </div>
+            <!-- Member.password -->
+            <div class="mb-3">
+              <label class="form-label" for="memberpassword">password:</label>
+              <input
+                  id="memberpassword"
+                  v-model="memberForm.password"
+                  class="form-control"
+                  placeholder="Enter password"
+                  type="password"/>
+            </div>
+            <!-- Button group-->
+            <div class="btn-group" role="group">
+              <button
+                  class="btn btn-primary btn-sm"
+                  type="button"
+                  @click="handleSubmit">
+                Submit
+              </button>
+              <button
+                  class="btn btn-danger btn-sm"
+                  type="button"
+                  @click="handleReset">
+                Reset
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</template>
+
+<style>
+
+</style>
+
+
+<!-- <li class="nav-item">
+    <a class="nav-link text-dark" asp-area="" asp-controller="Employee" asp-action="Index">All Employee</a>
+</li> -->
