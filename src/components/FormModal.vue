@@ -1,0 +1,240 @@
+<template>
+        <!-- :class="{ show: activeAdd }"
+         ref="editBookModal"
+         -->
+  <div      
+      :class="{ show: this.activeAdd , 'd-block': activeAdd}"
+      class="modal fade"
+      role="dialog"
+      tabindex="-1">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add a new Member</h5>
+          <button
+              aria-label="Close"
+              class="close"
+              data-dismiss="modal"
+              type="button"
+              @click="toggleAddMemberModal">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <!-- Member.id -->
+            <div class="mb-3" v-show="action == 'update'">
+              <label class="form-label" for="memberId">ID:</label>
+              <input
+                  id="memberId"
+                  v-model="member.id"
+                  class="form-control"
+                  type="text" disabled/>
+            </div>
+            <!-- Member.username -->
+            <div class="mb-3">
+              <label class="form-label" for="memberusername">username:</label>
+              <input
+                  id="memberusername"
+                  v-model="member.username"
+                  class="form-control"
+                  placeholder="Enter username"
+                  type="text"/>
+            </div>
+            <!-- Member.age -->
+            <div class="mb-3">
+              <label class="form-label" for="memberage">age:</label>
+              <input
+                  id="memberage"
+                  v-model="member.age"
+                  class="form-control"
+                  placeholder="Enter age"
+                  type="text"/>
+            </div>
+            <!-- Member.salary -->
+            <div class="mb-3">
+              <label class="form-label" for="membersalary">salary:</label>
+              <input
+                  id="membersalary"
+                  v-model="member.salary"
+                  class="form-control"
+                  placeholder="Enter salary"
+                  type="text"/>
+            </div>
+            <!-- Member.Dept   -->
+            <div class="form-group">
+              <label class="form-label" for="memberDept">Department: </label>
+              <select id="memberDept" v-model="member.department">
+                  <option value="Development">Development</option>
+                  <option value="HR">HR</option>
+                  <option value="Research">Research</option>
+              </select>
+            </div>
+            <!-- Member.Sex -->
+            <div class="mb-3 form-group">
+              <label class="form-label" >Sex: </label><p></p>
+              <input type="radio" v-model="this.member.sex" value="M" />Male
+              <input type="radio" v-model="this.member.sex" value="F" />Female
+              <input type="radio" v-model="this.member.sex" value="O" />LGTP
+            </div>
+            <!-- Member.email -->
+            <div class="mb-3">
+              <label class="form-label" for="memberemail">email:</label>
+              <input
+                  id="memberemail"
+                  v-model="member.email"
+                  class="form-control"
+                  placeholder="Enter email"
+                  type="text"/>
+            </div>
+            <!-- Member.password -->
+            <div class="mb-3">
+              <label class="form-label" for="memberpassword">password:</label>
+              <input
+                  id="memberpassword"
+                  v-model="member.password"
+                  class="form-control"
+                  placeholder="Enter password"
+                  type="password"/>
+            </div>
+            <!-- Button group-->
+            <div class="btn-group" role="group">
+              <button
+                  class="btn btn-primary btn-sm"
+                  type="button"
+                  @click="handleSubmit">
+                Submit
+              </button>
+              <button
+                  class="btn btn-danger btn-sm"
+                  type="button"
+                  @click="handleReset">
+                Reset
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import axios from "axios";
+import Alert from "./Alert.vue";
+
+
+export default {
+  props: ["action", "Members"],
+  data() {
+    return {
+      activeAdd: true,
+      member: {
+        id: "",
+        username: "",
+        age: "",
+        salary: "",
+        department: "",
+        sex: [],
+        email: "",
+        password: ""
+      },
+      // activeEdit: true,
+      // Members: [],
+
+    };
+  },
+  // components: {
+  //   alert: Alert,
+  // },
+  methods: {
+    addMember(payload) {
+      const path = "http://localhost:5001/Members";
+      axios
+          .post(path, payload)
+          .then(() => {
+            this.getMembers();
+            this.message = "Member added";
+            this.showMessage = true;
+          })
+          .catch((error) => {
+            console.log(error);
+            this.getMembers();
+          });
+    },
+    handleReset() {
+      this.initForm();
+    },
+    handleSubmit() {
+      this.toggleAddMemberModal();
+      let read = false;
+      if (this.member.read[0]) {
+        read = true;
+      }
+      const payload = {
+        title: this.member.title,
+        author: this.member.author,
+        read, // property shorthand
+      };
+      this.addMember(payload);
+      this.initForm();
+      this.action="";
+    },
+    initForm() {
+      this.member.id="";
+      this.member.name="";
+      this.member.age="";
+      this.member.salary="";
+      this.member.department="";
+      this.member.sex=[];
+      this.member.email="";
+      this.member.password="";
+    },
+    toggleAddMemberModal() {
+      const body = document.querySelector("body");
+      this.activeAddBookModal = !this.activeAddBookModal;
+      if (this.activeAddBookModal) {
+        body.classList.add("modal-open");
+        this.action = "Add";
+      } else {
+        body.classList.remove("modal-open");
+        this.action = "";
+      }
+    },
+    handleEditSubmit() {
+      this.toggleEditMemberModal(null);
+      let read = false;
+      if (this.editMemberForm.read) read = true;
+      const payload = {
+        title: this.editMemberForm.title,
+        author: this.editMemberForm.author,
+        read,
+      };
+      this.updateMember(payload, this.editMemberForm.id);
+    },
+    updateMember(payload, MemberID) {
+      const path = `http://localhost:5001/Members/${MemberID}`;
+      axios.put(path, payload)
+          .then(() => {
+            this.getMembers();
+            this.message = 'Member updated!';
+            this.showMessage = true;
+          })
+          .catch((error) => {
+            console.error(error);
+            this.getMembers();
+          });
+    },
+    handleEditCancel() {
+      this.toggleEditMemberModal(null);
+      this.initForm();
+      this.getMembers(); // why?
+    },
+  },
+  created() {
+    // this.getMembers();
+
+    console.log("component: 'MemberModal' created!");
+  },
+};
+</script>
