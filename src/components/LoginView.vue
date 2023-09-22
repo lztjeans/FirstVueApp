@@ -63,11 +63,12 @@ export default {
   },
   methods: {
     login() {
-      const path = "http://localhost:5001/Members";
+      const path = "http://localhost:5001/account/login";
       var payload ={
         account: this.email,
         password: this.password,
         IsRemeber: this.remember,
+        returnUrl:"/",
       };
       axios.post(path, payload)
           .then(() => {
@@ -85,22 +86,6 @@ export default {
             alert_1.innerHTML = errorMessage;
             console.log(alert_1);
           });
-
-      // const auth = getAuth();
-      // signInWithEmailAndPassword(auth, this.email, this.password)
-      //   .then(() => {
-      //     this.$router.push("/dashboard");
-      //   })
-      //   .catch((error) => {
-      //     const errorCode = error.code;
-      //     const errorMessage = error.message;
-      //     console.log(errorCode);
-      //     console.log(errorMessage);
-      //     let alert_1 = document.querySelector("#alert_1");
-      //     alert_1.classList.remove("d-none");
-      //     alert_1.innerHTML = errorMessage;
-      //     console.log(alert_1);
-      //   });
     },
     moveToRegister() {
       this.$router.push("/register");
