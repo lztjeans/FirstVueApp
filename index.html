@@ -6,22 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>Vite App</title>
   </head>
+  
+  <body>
+    <div id="app" ></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+  <!--
   <body style="flex-direction: column;">
     <header>
-      <div class="container-fluid">
-        <a class="btn navbar-brand" href="/">FirstApp</a>
-        <a class="btn btn-dark" href="/Employee">All Employee</a>
-        <div class="display-8">Welcome {{ curUser }} </div>
-        <div class="nav-item"> </div>
-        <div class="nav-item">
-            <!-- <a :href="logoutUrl" v-if="isLogin" class="btn btn-danger">Logout</a> -->
-            <!-- <a :href="loginUrl" v-else class="nav-link text-dark" ReturnUrl="/">Login</a> -->
-            <a v-if="isLogin"  class="btn btn-danger" href="/logout">Logout</a>
-            <a v-else class="btn btn-dark" href="/login">Login</a>
-        </div>
+      <div class="container">
+        <a class="nav-item navbar-brand" href="/">FirstApp</a>
+        <a class="nav-link" href="/Employee">All Employee</a>
+        <div class="display-8">Welcome {{getUsername()}} !</div>
+        <a class="btn btn-danger" href="/logout" >Logout</a>
+        <a class="btn btn-dark" href="/login">Login</a>
     </div>   
     </header>
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
   </body>
+  -->  
 </html>

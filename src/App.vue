@@ -1,17 +1,23 @@
 <template>
-  <!-- <HeaderBar isLogin="false" curUser="UUSSDSD"/> -->
-  <!-- <RouterView/> -->
-  <!-- <label >This text is from App.vue</label> -->
+
+  <AppHeader> </AppHeader>
+  <p></p>
   <router-view id="content" />
 </template>
 
 <script setup>
 // import {RouterView} from "vue-router";
-
+import AppHeader from "./components/AppHeader.vue";
 </script>
 
+
 <style>
-#app {
-  margin-top: 1px;
-}
+/* #app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+} */
 </style>

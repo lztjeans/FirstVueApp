@@ -30,25 +30,26 @@
         You don't have an account? <span @click="moveToRegister">Register</span>
       </div> -->
       <button class="btn btn-primary" type="submit" @click="login()">Log In</button>
-      <div
-        class="alert alert-warning alert-dismissible fade show mt-5 d-none"
-        role="alert"
-        id="alert_1"
-      >
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="alert"
-          aria-label="Close"
-        ></button>
-      </div>
     </form>
+    <h4>{{ output }}</h4>
+    <!-- <div
+      class="alert alert-warning alert-dismissible fade show mt-5 d-none"
+      role="alert"
+      id="alert_1"
+    >
+      Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
+    </div> -->
   </div>
 </template>
 
 <script>
-// import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { SET_AUTHENTICATION, SET_USERNAME } from "../store/storeconstants";
 import axios from "axios";
 
 export default {
@@ -57,6 +58,7 @@ export default {
       email: "",
       password: "",
       remember: false,
+      output: "",
       // message: "",
       // showMessage: false,
     };
@@ -65,31 +67,39 @@ export default {
     login() {
       const path = "http://localhost:5001/account/login";
       var payload ={
-        account: this.email,
+        Email: this.email,
         password: this.password,
-        IsRemeber: this.remember,
+        Remember: this.remember,
         returnUrl:"/",
       };
       axios.post(path, payload)
-          .then(() => {
-            this.$router.push("/dashboard");
+          .then((res) => {
+            console.log(res);
+            sessionStorage.setItem("LoginAccount", payload.Email);
+            sessionStorage.setItem("LoginSuccess", true);
+
+            this.output = "Authentication complete"
+            //stores true to the set_authentication and username to the set_username 
+            this.$store.commit(`auth/${SET_AUTHENTICATION}`, true);
+            this.$store.commit(`auth/${SET_USERNAME}`, this.email);
+            this.output = "Authentication complete."
+
+            // this.$router.push({name: "dashboard"});
+            // router.push({name: "dashboard"})
+            // this.$router.push('/logout');
+            this.$router.push("/");
           })
           .catch((error) => {
-            // this.message = "Member added";
-            // this.showMessage = true;
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorCode);
-            console.log(errorMessage);
-            let alert_1 = document.querySelector("#alert_1");
-            alert_1.classList.remove("d-none");
-            alert_1.innerHTML = errorMessage;
-            console.log(alert_1);
+            console.log(error.code);
+            console.log(error.message);
+            this.$store.commit(`auth/${SET_AUTHENTICATION}`, false);
+            sessionStorage.setItem("LoginSuccess", false);
+            this.output = "Username and password can not be empty"
           });
     },
-    moveToRegister() {
-      this.$router.push("/register");
-    },
+    // moveToRegister() {
+    //   this.$router.push("/register");
+    // },
   },
 };
 </script>

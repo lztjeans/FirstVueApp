@@ -39,6 +39,7 @@ namespace EshopAPI.Controllers
             {
                 await _signinManager.SignOutAsync();
                 SignInResult result = await _signinManager.PasswordSignInAsync(appUser, login.Password, login.Remember, false);
+                
                 return result;
             }
             return null;

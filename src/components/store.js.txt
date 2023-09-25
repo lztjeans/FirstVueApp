@@ -1,0 +1,106 @@
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+Vue.use(Vuex)
+
+// export default {
+//   data() {
+//     return {
+//       email: "",
+//       password: "",
+//       remember: false,
+//       // message: "",
+//       // showMessage: false,
+//     };
+//   },
+//   methods: {
+//     logout() {
+//       const path = "http://localhost:5001/account/logout";
+//       axios.post(path)
+//           .then((res) => {
+//             console.log(res);
+//             alert(res.data);
+//           })
+//           .catch((error) => {
+//             // this.message = "Member added";
+//             // this.showMessage = true;
+//             const errorCode = error.code;
+//             const errorMessage = error.message;
+//             console.log(errorCode);
+//             console.log(errorMessage);
+//           });
+//     },
+//   },
+// };
+
+
+
+
+export default new Vuex.Store({
+  state: {
+    token: '',
+    userid: '',
+    user_type: 0
+  },
+  getters: {
+    getLogin(state) {
+      return typeof state.token === 'string' && state.token !== ''
+    },
+    getToken(state) {
+      return state.token
+    },
+    getUserId(state) {
+      return state.userid
+    },
+    getUserType(state) {
+      return state.user_type
+    }
+  },
+  actions: {
+    loginSession(context, data) {
+      sessionStorage.setItem('session', JSON.stringify(data))
+      context.commit('setSession', data)
+    },
+    getSession(context) {
+      const session = sessionStorage.getItem('session')
+      if (session && typeof session === 'string' && session !== '') {
+        const data = JSON.parse(session)
+        context.commit('setSession', data)
+      }
+    },
+    logoutSession(context) {
+      context.commit('logoutSession')
+    }
+  },
+  mutations: {
+    setSession(state, n) {
+      state.token = n.token
+      state.userid = n.userid
+      state.user_type = n.user_type
+    },
+    logoutSession(state) {
+      sessionStorage.clear()
+      state.token = ''
+      state.userid = ''
+      state.user_type = 0
+    }
+  },
+  methods: {
+    logout() {
+      const path = "http://localhost:5001/account/logout";
+      axios.post(path)
+          .then((res) => {
+            console.log(res);
+            alert(res.data);
+          })
+          .catch((error) => {
+            // this.message = "Member added";
+            // this.showMessage = true;
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorCode);
+            console.log(errorMessage);
+          });
+    },
+  },
+})
