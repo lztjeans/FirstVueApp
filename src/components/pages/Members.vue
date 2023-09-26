@@ -72,8 +72,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 v-if="action == action_C" class="modal-title">Create</h5>
-          <h5 v-else-if="action == action_U" class="modal-title">Update</h5>
+          <h5 class="modal-title">{{ action }}</h5>
           <!--button-->
           <button
               aria-label="Close"
@@ -87,7 +86,7 @@
         <div class="modal-body">
           <form>
             <!-- Member.id -->
-            <div class="mb-3" v-show="action == action_U">
+            <div class="mb-3" v-show="activeUpdateModal">
               <label class="form-label" for="memberId">ID:</label>
               <input
                   id="memberId"
@@ -166,7 +165,7 @@
               <button
                   class="btn btn-primary btn-sm"
                   type="button"
-                  @click="handleSubmit">
+                  @click="handleSubmit()">
                 Submit
               </button>
               <button
@@ -186,9 +185,9 @@
 <script>
 import axios from "axios";
 import Alert from "../shared/Alert.vue";
-const action_C = "add";
+const action_C = "Create";
   // const action_R = "get";
-  const action_U = "upd";
+  const action_U = "Update";
   // const action_D = "del";
 const hostname = "http://localhost:5001/"
 
@@ -220,15 +219,15 @@ export default {
     toggleAddMemberModal() {
       const body = document.querySelector("body");
       this.activeAddModal = !this.activeAddModal;
+      this.action = action_C;
       if (this.activeAddModal) {
         body.classList.add("modal-open");
-        this.action = action_C;
       } else {
         body.classList.remove("modal-open");
-        this.action = "";
       }
     },
     toggleEditMemberModal(Member) {      
+      this.action = action_U;
       if (Member) {
         this.memberForm = Member;
       }
@@ -236,17 +235,18 @@ export default {
       this.activeUpdateModal = !this.activeUpdateModal;
       if (this.activeUpdateModal) {
         body.classList.add("modal-open");
-        this.action = action_U;
       } else {
         body.classList.remove("modal-open");
-        this.action = "";
       }
     },
     handleCloseModal(){
-      if (this.action == action_C){
-        this.toggleAddMemberModal();
-      }else if (this.action == action_U){
+      switch(this.action){
+        case action_C:
+          this.toggleAddMemberModal();
+          break;
+        case action_U:
         this.toggleEditMemberModal();
+          break;
       }
     },
     initForm() {
@@ -343,9 +343,8 @@ export default {
           });
     },
     removeMember(MemberID) {
-      //var heads={ crossDomain: true, "Content-Type": "application/json" }
       const path = hostname + "Account/empl/del/" + MemberID;
-      axios.delete(path)//,{headers:heads})
+      axios.delete(path)
           .then(() => {
             this.message = 'Member removed!';
             this.showMessage = true;
