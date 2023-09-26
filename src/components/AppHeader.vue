@@ -1,5 +1,4 @@
 <template>
-
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">FirstApp</a>
@@ -9,18 +8,23 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        <!-- <a class="nav-link active" aria-current="page" href="/">Home</a> -->
+                        <button class="btn nav-link" type="button" @click="handleHome()">Home</button>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="/Employee">All Employee</a>
+                        <!-- <a class="nav-link active" href="/employee">All Employees</a> -->
+                        <button class="btn nav-link" type="button" @click="handleEmpl()">All Employees</button>
                     </li>
                     <li class="nav-item"></li>
                 </ul>
                 <form class="d-flex">
-                    <!-- <a class="btn btn-danger" href="/logout" >Logout</a>
-                    <a class="btn nav-link" href="/login">Login</a>         -->
-                    <button class="btn btn-danger" type="button" @click="handleLogout()">Logout</button>
-                    <button class="btn nav-link" type="button" @click="handleLogin()">Login</button>
+                    <span v-show="getStat()" class="nav-item"> Welcome, {{ getUsername() }}</span>
+                    <button v-if="getStat()" class="btn btn-danger" type="button" @click="handleLogout()">Logout</button>
+                    <button v-else class="btn nav-link" type="button" @click="handleLogin()">Login</button>
+                    <!-- 
+
+
+                    -->
                 </form>
             </div>
         </div>
@@ -29,9 +33,18 @@
 
 <script>
   export default {
-    // name: 'AppHeader',
+    // name: 'AppHeader',{title:"",routes:'/'},
     data() {
       return {
+        username: sessionStorage.getItem("LoginAccount"),
+        isLogin: sessionStorage.getItem("LoginSuccess"),
+
+        // nav_bar_links:[
+        //     {title:"Home",routes:'/'},
+        //     {title:"All Employee",routes:'/employee'},
+        //     {title:"Login",routes:'/login'},
+        //     {title:"Logout",routes:'/logout'},
+        // ]
       }
     },
     methods:{
@@ -45,11 +58,27 @@
             console.log("click=handleLogin");
             this.$router.push('/login');
         },
+        getUsername(){
+        return sessionStorage.getItem("LoginAccount");
+        },
+        getStat(){
+            return sessionStorage.getItem("LoginSuccess");
+        },
+        handleEmpl(){
+            this.$router.push('/employee');
+        },
+        handleHome(){
+            this.$router.push('/');
+        }
+
     },
     created() {
-      console.log("component: 'AppHeader' created!");//for test
-    //   this.getUsername();
+        console.log("component: 'AppHeader' created!");//for test
+        this.getUsername();
     //   console.log(sessionStorage.getItem("LoginSuccess"));
+        // this.isLogin = 
+        // this.username = sessionStorage.getItem("LoginAccount");
+        
     },
    
   

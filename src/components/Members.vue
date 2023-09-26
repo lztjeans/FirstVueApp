@@ -171,8 +171,7 @@
               </button>
               <button
                   class="btn btn-danger btn-sm"
-                  type="button"
-                  @click="handleReset">
+                  type="reset">
                 Reset
               </button>
             </div>
@@ -183,7 +182,7 @@
   </div>
 
 </template>
-
+ <!-- @click="handleReset" -->
 <script>
 import axios from "axios";
 import Alert from "./Alert.vue";

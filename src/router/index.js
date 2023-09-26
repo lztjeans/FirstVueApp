@@ -11,19 +11,8 @@ const router = createRouter({
         {
             path: "/",
             name: "dashboard",
-            component: Dashboard
+            component: Dashboard,
         },
-        // {
-        //     path: "/dashboard",
-        //     name: "dashboard",
-        //     component: Dashboard,
-        //     redirect: "/"
-        // },
-        // {
-        //     path: "/dashboard",
-        //     name: "dashboard",
-        //     component: Dashboard,
-        // },
         {
             path: "/login",
             name: "login",
@@ -41,11 +30,6 @@ const router = createRouter({
             name: "Members",
             component: Members,
         },
-        // {
-        //     path: "/ping",
-        //     name: "ping",
-        //     component: Ping,
-        // },
 
     ],
 });

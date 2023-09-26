@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { SET_AUTHENTICATION, SET_USERNAME, GET_USERNAME } from "../store/storeconstants";
+// import { SET_AUTHENTICATION, SET_USERNAME, GET_USERNAME } from "../store/storeconstants";
 import axios from "axios";
 
 export default {
@@ -41,29 +41,20 @@ export default {
       axios.get(path)
           .then((res) => {
             console.log(res);
-            // sessionStorage.setItem("user-info",JSON.stringify(res.data));
-
-            this.output = "Authentication complete"
-            //stores true to the set_authentication and username to the set_username 
-            this.$store.commit(`auth/${SET_AUTHENTICATION}`, false);
-            this.$store.commit(`auth/${SET_USERNAME}`, "");
-            this.output = "Authentication complete."
-
+            sessionStorage.removeItem("LoginAccount");
+            sessionStorage.removeItem("LoginSuccess");
             this.$router.push("/");
           })
           .catch((error) => {
             console.log(error.code);
             console.log(error.message);
-            this.$store.commit(`auth/${SET_AUTHENTICATION}`, false);
+            sessionStorage.removeItem("LoginAccount");
+            sessionStorage.removeItem("LoginSuccess");
             this.output = "Username and password can not be empty"
-            // let alert_1 = document.querySelector("#alert_1");
-            // alert_1.classList.remove("d-none");
-            // alert_1.innerHTML = errorMessage;
-            // console.log(alert_1);
           });
     },
     getUsername(){
-      return this.$store.getters[`auth/${GET_USERNAME}`];
+      return sessionStorage.getItem("LoginAccount");
     },
   }
 };
