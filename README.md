@@ -9,30 +9,39 @@ Home page
 
 Login page
 before:
-![image](https://github.com/lztjeans/FirstVueApp/assets/12146003/eca41fe1-67c8-4994-8c9a-e00ad2d44dce)
+![loginbefore](https://github.com/lztjeans/FirstVueApp/assets/12146003/c31f115e-e237-4b14-a16d-1c9b012f404e)
+
 after:
-![image](https://github.com/lztjeans/FirstVueApp/assets/12146003/9eddf07a-4154-401c-8717-74b986a0ac36)
+![loginafter](https://github.com/lztjeans/FirstVueApp/assets/12146003/1b66e60d-66cf-40e2-b425-f88f2a5105f4)
 
 
 Logout page
 before:
-![image](https://github.com/lztjeans/FirstVueApp/assets/12146003/1f53ef5a-b847-42e0-a0da-1b8bc3e4995a)
+![logoutbefore](https://github.com/lztjeans/FirstVueApp/assets/12146003/fc93e8c0-e7df-4a5f-8c98-2a996260dc3f)
+
 after:
-![image](https://github.com/lztjeans/FirstVueApp/assets/12146003/eb2fbf4c-a5d5-402c-86b8-419aaa9154dd)
+![logoutafter](https://github.com/lztjeans/FirstVueApp/assets/12146003/d38e0d53-ca09-43d4-92ca-c1f8dd5b4e35)
+
 
 
 Employee maintain page
 List:
-![image](https://github.com/lztjeans/FirstVueApp/assets/12146003/a1e01373-84ef-4a50-883c-6599c99cec85)
+![emplList](https://github.com/lztjeans/FirstVueApp/assets/12146003/c77170cf-9212-490d-b059-9d16804f7aa8)
+
 
 Add:
-![image](https://github.com/lztjeans/FirstVueApp/assets/12146003/704da781-306c-48c2-a8d4-71a6f121533d)
-![image](https://github.com/lztjeans/FirstVueApp/assets/12146003/6d46da29-58f7-4130-9ad2-27451c90ca9f)
+![add1](https://github.com/lztjeans/FirstVueApp/assets/12146003/a52128e3-e041-47a7-b31f-a8026e93d8e1)
+
+![add2](https://github.com/lztjeans/FirstVueApp/assets/12146003/4b55baa5-32f7-4463-8f27-75eca7ab4eb2)
+
+
 
 Update:
-![image](https://github.com/lztjeans/FirstVueApp/assets/12146003/5e805f3f-ac3a-402d-a67c-6f8362143868)
-![image](https://github.com/lztjeans/FirstVueApp/assets/12146003/8deb064d-882d-4caf-ade0-c99e15622b15)
+![upd1](https://github.com/lztjeans/FirstVueApp/assets/12146003/3c8e989f-2bba-4670-af3a-0cf70b171e25)
+
+![upd2](https://github.com/lztjeans/FirstVueApp/assets/12146003/4487e25e-b3a4-4e1f-b05c-70559251a593)
 
 
 Delete:
-![image](https://github.com/lztjeans/FirstVueApp/assets/12146003/fa12536e-308d-40e0-b75a-00adef4cd012)
+![del](https://github.com/lztjeans/FirstVueApp/assets/12146003/a506dd25-e4ce-4562-a101-5d8eae72378a)
+
