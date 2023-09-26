@@ -18,8 +18,8 @@
                     <li class="nav-item"></li>
                 </ul>
                 <form class="d-flex">
-                    <span v-show="getStat()" class="nav-item"> Welcome, {{ getUsername() }}</span>
-                    <button v-if="getStat()" class="btn btn-danger" type="button" @click="handleLogout()">Logout</button>
+                    <span v-show="isLogin" class="nav-item"> Welcome, {{ username }}</span>
+                    <button v-if="isLogin" class="btn btn-danger" type="button" @click="handleLogout()">Logout</button>
                     <button v-else class="btn nav-link" type="button" @click="handleLogin()">Login</button>
                     <!-- 
 
@@ -75,9 +75,12 @@
     created() {
         console.log("component: 'AppHeader' created!");//for test
         this.getUsername();
-    //   console.log(sessionStorage.getItem("LoginSuccess"));
-        // this.isLogin = 
-        // this.username = sessionStorage.getItem("LoginAccount");
+    //   console.log();
+        this.isLogin = sessionStorage.getItem("LoginSuccess");
+        this.username = sessionStorage.getItem("LoginAccount");
+        
+    },
+    updated(){
         
     },
    

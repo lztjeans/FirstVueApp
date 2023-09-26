@@ -1,13 +1,19 @@
 <template>
 
-  <AppHeader> </AppHeader>
-  <p></p>
+  <!-- *************************************************************************                          -->
+  <navbar> </navbar>
   <router-view id="content" />
+  <!-- *************************************************************************                          -->
 </template>
 
-<script setup>
+<script>
 // import {RouterView} from "vue-router";
-import AppHeader from "./components/AppHeader.vue";
+    import navbar  from "./components/shared/AppHeader.vue";
+    export default {
+      components:{
+        navbar : navbar ,
+      }
+    }
 </script>
 
 
