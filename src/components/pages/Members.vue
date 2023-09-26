@@ -185,7 +185,7 @@
  <!-- @click="handleReset" -->
 <script>
 import axios from "axios";
-import Alert from "./Alert.vue";
+import Alert from "../shared/Alert.vue";
 const action_C = "add";
   // const action_R = "get";
   const action_U = "upd";

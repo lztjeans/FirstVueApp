@@ -1,8 +1,8 @@
 import {createRouter, createWebHistory} from "vue-router";
-import Dashboard from "../components/DashboardView.vue";
-import LoginView from "../components/LoginView.vue";
-import LogoutView from "../components/LogoutView.vue";
-import Members from "../components/Members.vue";
+import Dashboard from "../components/pages/DashboardView.vue";
+import LoginView from "../components/pages/LoginView.vue";
+import LogoutView from "../components/pages/LogoutView.vue";
+import Members from "../components/pages/Members.vue";
 // import Ping from "../components/Ping.vue";
 
 const router = createRouter({
