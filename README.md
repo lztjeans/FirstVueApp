@@ -5,6 +5,7 @@ This template should help get you started developing with Vue 3 in Vite.
 Home page
 ![image](https://github.com/lztjeans/FirstVueApp/assets/12146003/9c3e989c-e3a9-46ef-ab4c-8b83d1dab4f4)
 
+![image](https://github.com/lztjeans/FirstVueApp/assets/12146003/23bc785f-04fd-409c-a740-2f801d0bb19f)
 
 Login page
 before:
