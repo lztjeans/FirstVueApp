@@ -25,12 +25,23 @@
       type="checkbox" 
       v-model="remember" />
     </div>
-    <!-- <div class="alternative-option mt-4">
-      You don't have an account? <span @click="moveToRegister">Register</span>
-    </div> -->
+    <div class="alternative-option mt-4">
+      You don't have an account? <span  class="btn" @click="moveToRegister">Register</span>
+    </div>
     <button class="btn btn-primary" type="button" @click="login()">Log In</button>
-    <!-- <form>
-    </form> -->
+    <div
+      class="alert alert-warning alert-dismissible fade show mt-5 d-none"
+      role="alert"
+      id="alert_2"
+    >
+      Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
+
     <h4>{{ output }}</h4>
   </div>
 </template>
@@ -70,9 +81,14 @@ export default {
 
           })
           .catch((error) => {
-            console.log("axios.post catch " + error);
-            console.log(error.code);
-            console.log(error.message);
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode);
+          console.log(errorMessage);
+          let alert_2 = document.querySelector("#alert_2");
+          alert_2.classList.remove("d-none");
+          alert_2.innerHTML = errorMessage;
+          console.log(alert_2);
             sessionStorage.setItem("LoginSuccess", false);
             this.output = "Username and password can not be empty"
           })
@@ -81,9 +97,9 @@ export default {
             // alert(this.output);
           });
     },
-    // moveToRegister() {
-    //   this.$router.push("/register");
-    // },
+    moveToRegister() {
+      this.$router.push("/register");
+    },
   },
   created(){
     console.log("component: 'LoginView' created!");//for test
