@@ -4,6 +4,7 @@ import LoginView from "../components/pages/LoginView.vue";
 import LogoutView from "../components/pages/LogoutView.vue";
 import Members from "../components/pages/Members.vue";
 import Register from "../components/pages/RegisterView.vue";
+import CatalogList from "../components/catalog/List.vue";
 // import Ping from "../components/Ping.vue";
 
 const router = createRouter({
@@ -36,7 +37,11 @@ const router = createRouter({
             name: "Register",
             component: Register,
         },
-
+        {
+            path: "/list",
+            name: "CatalogList",
+            component: CatalogList,
+        }
     ],
 });
 
