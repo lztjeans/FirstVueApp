@@ -9,13 +9,11 @@ const props = defineProps({
     type: Array,
     required: true,
   },
+
 })
 
 const slots = useSlots()
 console.log(`slots`, slots)
-
-
-
 
 </script>
 
@@ -38,7 +36,3 @@ console.log(`slots`, slots)
     </tbody>
   </table>
 </template>
-<!--
-
-    :props="props"
--->

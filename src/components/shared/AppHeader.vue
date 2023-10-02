@@ -15,7 +15,9 @@
                         <!-- <a class="nav-link active" href="/employee">All Employees</a> -->
                         <button class="btn nav-link" type="button" @click="handleEmpl()">All Employees</button>
                     </li>
-                    <li class="nav-item"></li>
+                    <li class="nav-item">
+                        <button class="btn nav-link" type="button" @click="handleList()">View Products</button>
+                    </li>
                 </ul>
                 <form class="d-flex">
                     <span v-show="isLogin" class="nav-item"> Welcome, {{ username }}</span>
@@ -57,6 +59,9 @@
         handleLogin() {
             console.log("click=handleLogin");
             this.$router.push('/login');
+        },
+        handleList(){
+            this.$router.push('/list');
         },
         getUsername(){
         return sessionStorage.getItem("LoginAccount");

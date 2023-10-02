@@ -83,6 +83,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
+
         <div class="modal-body">
           <form>
             <!-- Member.id -->
@@ -176,6 +177,7 @@
             </div>
           </form>
         </div>
+        
       </div>
     </div>
   </div>

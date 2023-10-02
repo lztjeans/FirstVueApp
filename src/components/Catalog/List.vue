@@ -1,43 +1,89 @@
 ﻿<template>
-    <MyTable :tableHeads="tableHeads" :tableBody="tableBody">
-      <template #ithelpLink="{ index, props, value }">
-            <button type="button" @click="handleClick('u',value)">Update</button>
-      </template>
-      <template #deleteLink="{index, props, value }">
-        <button type="button" @click="handleClick('d',value)">Delete</button>
-      </template>
-    </MyTable>
-  </template>
+    <div class="container">
+        <div class="row">
+            
+            <div class="col-sm-10">
+                <h1>Here is the list of Products</h1>
+                <hr/>
+                <alert v-if="showMessage" :message="message"></alert>
+                <button
+                class="btn btn-success btn-sm"
+                type="button"
+                @click="handleClick(action_C)">
+                Add Product
+                </button>
+                <br/><br/>
 
-<script setup>
-//import MyTable from './components/MyTable.vue'
+                <MyTable :tableHeads="tableHeads" :tableBody="tableBody">
+                <template #updateLink="{ index, props, value }">
+                        <button type="button" @click="handleClick(action_U,value)">Update</button>
+                </template>
+                <template #deleteLink="{index, props, value }">
+                    <button type="button" @click="handleClick(action_D,value)">Delete</button>
+                </template>
+                </MyTable>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- black backgroud-->
+    <div v-show="activeModal" class="modal-backdrop fade show"></div>
+
+    <!-- add or edit modal -->
+    <div :class="{ show: activeModal , 'd-block': activeModal}" class="modal fade" role="dialog" tabindex="-1">
+        <div class="modal-dialog" role="document">
+            <ProductForm :title="action" 
+                         :fieldNames="['a,b,c,d,e']" 
+                         @someEvent="callback"
+                         @closeEvent="handleCloseModal" >
+
+
+
+                <!-- <template #submit>
+                    <button
+                        class="btn btn-primary btn-sm"
+                        type="button"
+                        @click="handleSubmit(action)">
+                        Submit
+                    </button>
+                </template> -->
+                <template #test>test</template>
+            </ProductForm>
+        </div>
+    </div>
+
+</template>
+
+
+
+
+
+<script setup> 
 import MyTable from '../shared/Mytable.vue';
-//, 'Delete'
-const tableHeads = ['Id', 'Name', 'Description', 'Price', 'Picture', 'Type Name', 'Brand', 'Update', 'Delete']
-// const tableBody = [
-// {
-//     id: "16",
-//     name: '阿傑',
-//     description: '咩色用得好，歸剛沒煩惱',
-//     price: '從 ECMAScript 偷窺 JavaScript Array method',
-//     pic: 'this is a icon',
-//     typename: 'tv',
-//     brand: 'Sony',
-//     ithelpLink: '/users/20152459/ironman/5744',
-//     deleteLink: '/users/20151114/ironman/5425',
-//   }
-// ]
+import ProductForm from '../shared/ProductForm.vue';
+import Alert from "../shared/Alert.vue";
+import axios from "axios";
+
 </script>
 
-<script>
-import axios from "axios";
+
+<script> 
+const tableHeads = [ 'Name', 'Description', 'Price', 'Picture', 'Type Name', 'Brand', 'Update', 'Delete']
+const hostname = "http://localhost:5001/"
+var action="default Title";
+const action_C="Create";
+const action_U="Update";
+const action_D="Delete";
 
 export default {  
     data() {
         return {
-            tableBody: [],
-            bodyData: {
-                
+            showMessage: false,
+            message: "",
+            activeModal: false,
+            tableBody: null,
+            bodyData: {                
                 name: 'abc',
                 description: 'desc',
                 price: '1',
@@ -50,34 +96,66 @@ export default {
         }
     },
     methods: {
-        handleClick(action, val){
-            switch(action){
-                case 'u':
-                    alert("Update this item now... redir :" + val)
+        handleClick(a, val){
+            this.showMessage=true;
+            action=a;
+            switch(a){
+                case action_C:
+                    this.activeModal = true;
+                    this.message=('Add new item!');
                     break;
-                case 'd':
-                    alert("This item was deleted by " + val);
+                case action_U:
+                this.activeModal = true;
+                    this.message=("Update this item now... redir :" + val)
+                    break;
+                case action_D:                    
+                    this.message=("This item was deleted by " + val);
                     break;
             }
         },
+        handleCloseModal(){
+            this.activeModal=false;
+
+        },
+        handleSubmit() {
+            switch (action) {
+                case action_C:
+                this.handleCloseModal();
+                alert( action + ' submit');
+                // this.addMember(this.memberForm);
+                // this.initForm();
+                break;
+                case action_U:
+                this.handleCloseModal();
+                // this.updateMember(this.memberForm);
+                break;
+                default:
+                break;
+            }
+        },
         getAllProducts(){
-            this.tableBody[this.bodyData];
-            // const path = "http://localhost:5001/prod/get";
-        //     axios.get(path)
-        //         .then((res) => {
-        //             console.log(res.data);
-        //         })
-        //         .catch((error) => {
-        //             console.error(error);
-        //         });
-        // },
+            const path =hostname+"prod/list";
+            axios.get(path)
+                .then((res) => {
+                    this.tableBody = res.data;
+                    console.log(res.data);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+            console.log("getAllProducts done");
+        },
+        callback(){
+            alert('callback!!');
+        }
 
     },
     created(){
+        console.log('List started creating...')
         this.getAllProducts();
-
+        console.log('List be created!');
     },
-}
+
 }
 </script>
 

@@ -5,6 +5,8 @@ import LogoutView from "../components/pages/LogoutView.vue";
 import Members from "../components/pages/Members.vue";
 import Register from "../components/pages/RegisterView.vue";
 import CatalogList from "../components/catalog/List.vue";
+
+// import HelloWorld from "../components/catalog/HelloWorld.vue";
 // import Ping from "../components/Ping.vue";
 
 const router = createRouter({
